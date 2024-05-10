@@ -2,6 +2,13 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.zip
+raw/data/
+raw/bible-sources.md
+raw/bible-sources.html
+raw/pronto/
+raw/tempfile.html
+raw/*browserBible/
 
 raw/info/*.html
 

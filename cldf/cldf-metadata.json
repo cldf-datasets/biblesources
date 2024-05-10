@@ -12,7 +12,7 @@
         {
             "rdf:about": "git@github.com:cldf-datasets/biblesources",
             "rdf:type": "prov:Entity",
-            "dc:created": "19950e4",
+            "dc:created": "557b3fa",
             "dc:title": "Repository"
         },
         {

@@ -251,7 +251,7 @@ class Dataset(BaseDataset):
                     "ID": "",
                     "Name": "",
                     "Variety": "",
-                    "ISO639P3Code": "",
+                    "ISO639P3code": "",
                     "Glottocode": "",
                     "Family": "",
                     "Latitude": "",
@@ -291,7 +291,7 @@ class Dataset(BaseDataset):
             languages[lid]["Latitude"] = row["Latitude"]
             languages[lid]["Longitude"] = row["Longitude"]
             languages[lid]["Macroarea"] = row["Macroarea"]
-            languages[lid]["ISO639P3Code"] = row["ISO639P3Code"]
+            languages[lid]["ISO639P3code"] = row["ISO639P3Code"]
             languages[lid]["Glottocode"] = row["Glottocode"]
             languages[lid]["Family"] = row["Family"]
             languages[lid]["Contribution_IDS"] += [row["ID"]]
