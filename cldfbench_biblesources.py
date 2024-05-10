@@ -9,9 +9,6 @@ import pybtex.database
 from pycldf.sources import Source
 
 
-PRONTO = False
-DOWNLOAD_INFO = False
-GPATH = "/home/mattis/data/datasets/glottolog"
 
 LICENSES = {
         "": "All rights reserved",
@@ -134,6 +131,9 @@ class Dataset(BaseDataset):
             "ISO639P3Code",
             "Glottocode",
             "Family",
+            "Latitude",
+            "Longitude",
+            "Macroarea",
             "Year",
             "Date",
             "Copyright",
@@ -141,8 +141,11 @@ class Dataset(BaseDataset):
             "Translator",
             "Title",
             "URL"]]
+        
+        download_info = input("Download all information? (y/n) ")
+        download_info = True if download_info == "y" else False
 
-        if DOWNLOAD_INFO:
+        if download_info:
             self.raw_dir.download(
                     "https://github.com/lgessler/pronto/raw/master/RELEASE_v0.1.md", 
                     "bible-sources.md")
@@ -150,7 +153,9 @@ class Dataset(BaseDataset):
                     "http://ebible.org/Scriptures/dir.php",
                     "bible-sources.html")
         
-        glottolog = Glottolog(GPATH)
+        gpath = input("Path to Glottolog? ")
+
+        glottolog = Glottolog(gpath)
         iso2glot = glottolog.languoids_by_code()
 
         with open(self.raw_dir / "bible-sources.html") as f:
@@ -162,7 +167,7 @@ class Dataset(BaseDataset):
         sources = []
         for iso, extension in bibles:
             args.log.info("processing {0} / {1}".format(iso, extension))
-            if DOWNLOAD_INFO:
+            if download_info:
                 self.raw_dir.download(
                     "http://ebible.org/find/details.php?id=" + iso + extension,
                     "tempfile.html")
@@ -195,6 +200,9 @@ class Dataset(BaseDataset):
                     iso,
                     language.glottocode,
                     language.family.name if language.family else "",
+                    language.latitude or "",
+                    language.longitude or "",
+                    language.macroareas[0].name,
                     info["year"],
                     info["date"],
                     info["copyright"],
@@ -214,8 +222,9 @@ class Dataset(BaseDataset):
         args.writer.cldf.add_columns(
                 "LanguageTable",
                 {
-                    "Name": "Contribution_IDS",
-                    "separator": " "}
+                    "name": "Contribution_IDS",
+                    "separator": " "},
+                "Variety"
                 )
 
         args.writer.cldf.add_component(
@@ -245,6 +254,9 @@ class Dataset(BaseDataset):
                     "ISO639P3Code": "",
                     "Glottocode": "",
                     "Family": "",
+                    "Latitude": "",
+                    "Longitude": "",
+                    "Macroarea": "",
                     "Contribution_IDS": []}
                 )
         contributions = collections.defaultdict(
@@ -276,6 +288,9 @@ class Dataset(BaseDataset):
             languages[lid]["ID"] = lid
             languages[lid]["Name"] = row["Name"]
             languages[lid]["Variety"] = row["Variety"]
+            languages[lid]["Latitude"] = row["Latitude"]
+            languages[lid]["Longitude"] = row["Longitude"]
+            languages[lid]["Macroarea"] = row["Macroarea"]
             languages[lid]["ISO639P3Code"] = row["ISO639P3Code"]
             languages[lid]["Glottocode"] = row["Glottocode"]
             languages[lid]["Family"] = row["Family"]

@@ -12,13 +12,13 @@
         {
             "rdf:about": "git@github.com:cldf-datasets/biblesources",
             "rdf:type": "prov:Entity",
-            "dc:created": "4a5d270",
+            "dc:created": "19950e4",
             "dc:title": "Repository"
         },
         {
-            "rdf:about": "https://github.com/glottolog/glottolog",
+            "rdf:about": "git@github.com:glottolog/glottolog",
             "rdf:type": "prov:Entity",
-            "dc:created": "v5.0",
+            "dc:created": "v5.0-2-g56e010d163",
             "dc:title": "Glottolog"
         },
         {
@@ -113,7 +113,12 @@
                         "name": "ISO639P3code"
                     },
                     {
-                        "separator": " "
+                        "separator": " ",
+                        "name": "Contribution_IDS"
+                    },
+                    {
+                        "datatype": "string",
+                        "name": "Variety"
                     }
                 ],
                 "primaryKey": [
