@@ -14,6 +14,7 @@ csvw==3.3.0
 gitdb==4.0.11
 greenlet==3.0.3
 idna==3.7
+igraph==0.11.5
 iniconfig==2.0.0
 isodate==0.6.1
 jsonschema==4.22.0
@@ -37,6 +38,7 @@ pylatexenc==2.10
 pylexibank==3.4.0
 pytest==8.2.0
 python-dateutil==2.9.0.post0
+python-igraph==0.11.5
 rdflib==7.0.0
 referencing==0.35.1
 regex==2024.4.28
@@ -49,6 +51,7 @@ soupsieve==2.5
 SQLAlchemy==1.4.52
 tabulate==0.9.0
 termcolor==2.4.0
+texttable==1.7.0
 tqdm==4.66.4
 uritemplate==4.1.1
 urllib3==2.2.1

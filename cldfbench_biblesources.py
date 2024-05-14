@@ -12,10 +12,13 @@ from pycldf.sources import Source
 
 LICENSES = {
         "": "All rights reserved",
+        "Creative Commons License: Attribution-Noncommercial-No Derivative Works": "CCBYNCND",
         "Creative Commons License: Attribution-Noncommercial-No Derivative Works.": "CCBYNCND",
         "Creative Commons Attribution-ShareAlike 4.0 License": "CCBYSA-4.0",
         "Creative Commons Attribution license 4.0.": "CCBY-4.0",
         "public domain": "Public Domain",
+        "Creative Commons Attribution Share-Alike 4": "CCBYSA-4.0",
+        "Creative Commons Attribution- ShareAlike license": "CCBYSA",
         "Creative Commons Attribution-No Derivatives license 4.0.": "CCBYND-4.0",
         "Creative Commons Attribution Share-Alike license 4.0.": "CCBYSA",
         "restricted": "All rights reserved",
@@ -76,12 +79,12 @@ def bible_info(text):
                 text,
                 )
         if cc:
-            cc = cc[0]
+            cc = cc[0].strip()
         else:
             cc = re.findall(
-                    '(Creative Commons .*)',
+                    r'([Cc]reative [Cc]ommons .*?)[\.<>\(]',
                     text
-                    )[0]
+                    )[0].strip()
     elif "all rights reserved" in text.lower():
         cc = "restricted"
     elif "public domain" in text.lower():
@@ -103,7 +106,10 @@ def bible_info(text):
         if contributor:
             info["translator"] = contributor[0]
 
-
+    
+    if cc not in LICENSES:
+        print(cc)
+        input()
     info["license"] = LICENSES.get(cc, cc)
     return info
 
@@ -309,6 +315,7 @@ class Dataset(BaseDataset):
             contributions[row["ID"]]["Source"] = "CLD-Bible-{0}".format(
                     row["ID"])
             contributions[row["ID"]]["ID"] = row["ID"]
+            contributions[row["ID"]]["Language_ID"] = lid
 
             # create sources
             source = pybtex.database.Entry(type_="book")
